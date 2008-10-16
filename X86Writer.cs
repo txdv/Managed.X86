@@ -67,6 +67,8 @@ namespace Managed.X86 {
 		#endregion
 
 		public X86Label CreateLabel() { return new X86Label(this); }
+		public X86Label CreateLabel(IntPtr position) { return new X86Label(this, position); }
+		public X86Label CreateLabel(int offset) { return new X86Label(this, new IntPtr(this.Position.ToInt32() + offset)); }
 
 		public void Nop() { writer.Write(new byte[] { 0x90 }); }
 
@@ -99,4 +101,5 @@ namespace Managed.X86 {
 			writer.Write(stackDisp);
 		}
 	}
+
 }
