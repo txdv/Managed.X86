@@ -44,6 +44,16 @@ namespace Managed.X86 {
 			address.Emit(writer, (X86Register32)0x5);
 		}
 
+		public void Jmp(X86ConditionCode cond, X86Label label) {
+			if (label.IsMarked) {
+				Jmp(cond, label.Position.ToInt32() - this.Position.ToInt32());
+			} else {
+				label.AddPatchRequired();
+				writer.Write(new byte[] { 0x0F, (byte)(0x80 | (byte)cond) });
+				writer.Write(0xDEADBEEF);
+			}
+		}
+
 		public void Jmp(X86ConditionCode cond, Int32 displacement) {
 			if (is_imm8(displacement - 2)) {
 				writer.Write(new byte[] { (byte)(0x70 | (byte)cond) });
