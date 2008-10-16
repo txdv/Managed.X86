@@ -21,6 +21,10 @@ namespace Managed.X86 {
 		internal X86Label(X86Writer writer) {
 			this.writer = writer;
 		}
+		internal X86Label(X86Writer writer, IntPtr position)
+			: this(writer) {
+			mark = position;
+		}
 
 		public void Mark() {
 			if (!this.mark.HasValue) {
