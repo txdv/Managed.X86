@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Managed.X86", "Managed.X86.csproj", "{1AAF4B4D-2986-4F56-BEBC-EEC6EA0EE435}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplication8", "..\ConsoleApplication8\ConsoleApplication8.csproj", "{1B752C6C-571A-425F-94BB-0719DC31F686}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1AAF4B4D-2986-4F56-BEBC-EEC6EA0EE435}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AAF4B4D-2986-4F56-BEBC-EEC6EA0EE435}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AAF4B4D-2986-4F56-BEBC-EEC6EA0EE435}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AAF4B4D-2986-4F56-BEBC-EEC6EA0EE435}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B752C6C-571A-425F-94BB-0719DC31F686}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B752C6C-571A-425F-94BB-0719DC31F686}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B752C6C-571A-425F-94BB-0719DC31F686}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B752C6C-571A-425F-94BB-0719DC31F686}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
