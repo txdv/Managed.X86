@@ -14,8 +14,7 @@ using System.Text;
 namespace Managed.X86 {
 	partial class X86Writer {
 		public void Pop32(X86Register32 reg) {
-			writer.Write(new byte[] { 0x8F });
-			reg_emit32(0, reg);
+			writer.Write(new byte[] { (byte)(0x58 + reg) });
 		}
 		public void Pop32(X86Address addr) {
 			writer.Write(new byte[] { 0x8F });

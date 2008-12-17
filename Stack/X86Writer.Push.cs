@@ -14,14 +14,13 @@ using System.Text;
 namespace Managed.X86 {
 	partial class X86Writer {
 		public void Push32(X86Register32 reg) {
-			writer.Write(new byte[] { 0xFF });
-			reg_emit32((X86Register32)6, reg);
+			writer.Write(new byte[] { (byte)(0x50 + reg) });
 		}
 		public void Push32(X86Address addr) {
 			writer.Write(new byte[] { 0xFF });
 			addr.Emit(writer, (X86Register8)6);
 		}
-		public void Push32(Int32 imm) {
+		public void Push32(UInt32 imm) {
 			if (is_imm8(imm)) {
 				writer.Write(new byte[] { 0x6A });
 				imm_emit8(imm);

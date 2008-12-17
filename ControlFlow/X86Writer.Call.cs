@@ -30,6 +30,9 @@ namespace Managed.X86 {
 				writer.Write(0xDEADBEEF);
 			}
 		}
+		public void Call(string labelName) {
+			Call(Label(labelName));
+		}
 		public void Call(X86Register32 register) {
 			this.writer.Write(new byte[] { 0xFF });
 			reg_emit32((X86Register32)0x2, register);

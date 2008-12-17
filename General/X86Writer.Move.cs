@@ -18,14 +18,16 @@ namespace Managed.X86 {
 			reg_emit8(0, dest);
 			writer.Write(value);
 		}
-		public void Mov16(X86Register16 dest, Int16 value) {
+		public void Mov16(X86Register16 dest, UInt16 value) {
 			this.writer.Write(new byte[] { 0x66, 0xc7 });
 			reg_emit16(0, dest);
 			writer.Write(value);
 		}
-		public void Mov32(X86Register32 dest, Int32 value) {
-			this.writer.Write(new byte[] { 0xc7 });
-			reg_emit32(0, dest);
+		public void Mov32_(X86Register32 dest, UInt32 value) {
+			//this.writer.Write(new byte[] { 0xc7 });
+			//reg_emit32(0, dest);
+
+			this.writer.Write(new byte[] { (byte)(0xB8 + dest) });
 			writer.Write(value);
 		}
 
@@ -83,5 +85,13 @@ namespace Managed.X86 {
 			writer.Write(new byte[] { 0x8b });
 			reg_emit32(dest, src);
 		}
+
+
+		public void Mov32(X86Register32 dest, X86Label label) {
+			//if (label.IsMarked) {
+			//    Mov32(dest,
+			//}
+		}
+
 	}
 }

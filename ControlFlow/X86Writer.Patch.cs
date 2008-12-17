@@ -21,9 +21,9 @@ namespace Managed.X86 {
 		/// <param name="target">The target address</param>
 
 		public void Patch(IntPtr target) {
-			int disp, size = 0;
+			uint disp, size = 0;
 			int peek = stream.ReadByte();
-			int pos = this.Position.ToInt32();
+			uint pos = (uint)this.Position.ToInt32();
 			switch (peek) {
 				#region call, jump32
 				case 0xe8:
@@ -49,7 +49,7 @@ namespace Managed.X86 {
 						throw new NotSupportedException();
 					}
 			}
-			disp = (target.ToInt32()) - pos;
+			disp = ((uint)target.ToInt32()) - pos;
 			if (size != 0) imm_emit32(disp - 4);
 			else if (is_imm8(disp - 1)) imm_emit8(disp - 1);
 			else throw new NotSupportedException();

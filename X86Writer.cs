@@ -57,18 +57,52 @@ namespace Managed.X86 {
 			address_byte(3, (byte)(dest), (byte)(src));
 		}
 
-		private void imm_emit8(Int32 value) { writer.Write((Byte)value); }
-		private void imm_emit16(Int32 value) { writer.Write((Int16)value); }
-		private void imm_emit32(Int32 value) { writer.Write((Int32)value); }
+		private void imm_emit8(UInt32 value) { writer.Write((Byte)value); }
+		private void imm_emit16(UInt32 value) { writer.Write((UInt16)value); }
+		private void imm_emit32(UInt32 value) { writer.Write((UInt32)value); }
 
-		internal static bool is_imm8(Int32 imm) { return (((int)(imm) >= -128 && (int)(imm) <= 127)); }
-		internal static bool is_imm16(Int32 imm) { return (((int)(imm) >= -(1 << 16) && (int)(imm) <= ((1 << 16) - 1))); }
+		internal static bool is_imm8(UInt32 imm) { return (((int)(imm) >= -128 && (int)(imm) <= 127)); }
+		internal static bool is_imm16(UInt32 imm) { return (((int)(imm) >= -(1 << 16) && (int)(imm) <= ((1 << 16) - 1))); }
 
 		#endregion
 
-		public X86Label CreateLabel() { return new X86Label(this); }
-		public X86Label CreateLabel(IntPtr position) { return new X86Label(this, position); }
-		public X86Label CreateLabel(int offset) { return new X86Label(this, new IntPtr(this.Position.ToInt32() + offset)); }
+		private Dictionary<string, X86Label> _labels = new Dictionary<string, X86Label>();
+		public X86Label Label(string labelName) {
+			if (_labels.ContainsKey(labelName)) return _labels[labelName];
+			return null;
+		}
+
+		public void MarkLabel(string labelName) {
+			Label(labelName).Mark();
+		}
+
+		public X86Label CreateLabel(string labelName) {
+			if (_labels.ContainsKey(labelName)) throw new ApplicationException("Label already exists.");
+
+			var newLabel = new X86Label(this);
+			_labels.Add(labelName, newLabel);
+			return newLabel;
+		}
+		public X86Label CreateLabel(string labelName, IntPtr position) {
+			if (_labels.ContainsKey(labelName)) throw new ApplicationException("Label already exists.");
+
+			var newLabel =new X86Label(this, position);
+			_labels.Add(labelName, newLabel);
+			return newLabel;
+		}
+		public X86Label CreateLabel(string labelName, int offset) {
+			if (_labels.ContainsKey(labelName)) throw new ApplicationException("Label already exists.");
+
+			var newLabel =new X86Label(this, new IntPtr(this.Position.ToInt32() + offset));
+			_labels.Add(labelName, newLabel);
+			return newLabel;
+		}
+
+		public void AddLabel(string labelName, X86Label label) {
+			if (_labels.ContainsKey(labelName)) throw new ApplicationException("Label already exists.");
+
+			_labels.Add(labelName, label);
+		}
 
 		public void Nop() { writer.Write(new byte[] { 0x90 }); }
 
@@ -95,6 +129,7 @@ namespace Managed.X86 {
 			writer.Write(type);
 		}
 
+		public void Retn() { writer.Write(new byte[] { 0xC3 }); }
 		public void Return() { writer.Write(new byte[] { 0xCB }); }
 		public void Return(Int16 stackDisp) {
 			writer.Write(new byte[] { 0xCA });
