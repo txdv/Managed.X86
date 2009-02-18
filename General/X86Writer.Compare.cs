@@ -57,27 +57,15 @@ namespace Managed.X86 {
 			reg_emit8((X86Register8)7, dest);
 			imm_emit8(src);
 		}
-		public void Cmp16_(X86Register16 dest, UInt16 src) {
-			if (is_imm8(src)) {
-				this.writer.Write(new byte[] { 0x66, 0x83 });
-				reg_emit16((X86Register16)7, dest);
-				imm_emit8(src);
-			} else {
-				writer.Write(new byte[] { 0x66, 0x81 });
-				reg_emit16((X86Register16)7, dest);
-				imm_emit16(src);
-			}
+		public void Cmp16(X86Register16 dest, Int16 src) {
+			writer.Write(new byte[] { 0x66, 0x81 });
+			reg_emit16((X86Register16)7, dest);
+			imm_emit16(src);
 		}
-		public void Cmp32_(X86Register32 dest, UInt32 src) {
-			if (is_imm8(src)) {
-				this.writer.Write(new byte[] { 0x83 });
-				reg_emit32((X86Register32)7, dest);
-				imm_emit8(src);
-			} else {
-				writer.Write(new byte[] { 0x81 });
-				reg_emit32((X86Register32)7, dest);
-				imm_emit32(src);
-			}
+		public void Cmp32(X86Register32 dest, Int32 src) {
+			writer.Write(new byte[] { 0x81 });
+			reg_emit32((X86Register32)7, dest);
+			imm_emit32(src);
 		}
 
 		public void Cmp8(X86Address dest, Byte src) {
@@ -85,12 +73,12 @@ namespace Managed.X86 {
 			dest.Emit(writer, (X86Register8)7);
 			imm_emit8(src);
 		}
-		public void Cmp16(X86Address dest, UInt16 src) {
+		public void Cmp16(X86Address dest, Int16 src) {
 			writer.Write(new byte[] { 0x66, 0x81 });
 			dest.Emit(writer, (X86Register8)7);
 			imm_emit16(src);
 		}
-		public void Cmp32(X86Address dest, UInt32 src) {
+		public void Cmp32(X86Address dest, Int32 src) {
 			writer.Write(new byte[] { 0x81 });
 			dest.Emit(writer, (X86Register8)7);
 			imm_emit32(src);

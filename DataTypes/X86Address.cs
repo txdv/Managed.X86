@@ -15,18 +15,18 @@ using System.IO;
 namespace Managed.X86 {
 	public struct X86Address {
 		public readonly X86Register32 BaseRegister;
-		public readonly UInt32 Offset;
+		public readonly Int32 Offset;
 		public readonly X86Register32 IndexRegister;
 		public readonly Byte IndexShift;
 
-		public X86Address(X86Register32 baseRegister, UInt32 offset) {
+		public X86Address(X86Register32 baseRegister, Int32 offset) {
 			this.BaseRegister = baseRegister;
 			this.Offset = offset;
 			this.IndexRegister = X86Register32.None;
 			this.IndexShift = 0;
 		}
 
-		public X86Address(X86Register32 baseRegister, UInt32 offset, X86Register32 indexRegister, byte indexShift) {
+		public X86Address(X86Register32 baseRegister, Int32 offset, X86Register32 indexRegister, byte indexShift) {
 			this.BaseRegister = baseRegister ;
 			this.Offset = offset;
 			this.IndexRegister = indexRegister;
@@ -80,11 +80,11 @@ namespace Managed.X86 {
 					)
 			);
 		}
-		private void mem_emit(BinaryWriter writer, Byte r, UInt32 dest) {
+		private void mem_emit(BinaryWriter writer, Byte r, Int32 dest) {
 			address_byte(writer, 0, (byte)r, 5);
 			writer.Write(dest);
 		}
-		private void membase_emit(BinaryWriter writer, Byte r, X86Register32 basereg, UInt32 disp) {
+		private void membase_emit(BinaryWriter writer, Byte r, X86Register32 basereg, Int32 disp) {
 			do {
 				if ((basereg) == X86Register32.ESP) {
 					if ((disp) == 0) {
@@ -111,7 +111,7 @@ namespace Managed.X86 {
 				}
 			} while (false);
 		}
-		private void memindex_emit(BinaryWriter writer, Byte r, X86Register32 basereg, UInt32 disp, X86Register32 indexreg, Byte shift) {
+		private void memindex_emit(BinaryWriter writer, Byte r, X86Register32 basereg, Int32 disp, X86Register32 indexreg, Byte shift) {
 			if (basereg == X86Register32.None) {
 				address_byte(writer, 0, (byte)r, 4);
 				address_byte(writer, (byte)shift, (byte)indexreg, 5);

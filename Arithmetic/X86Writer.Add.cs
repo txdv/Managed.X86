@@ -13,7 +13,7 @@ using System.Text;
 
 namespace Managed.X86 {
 	partial class X86Writer {
-		public void Add8(X86Register8 dest, X86Register8 src) {
+		public void Add8 (X86Register8 dest, X86Register8 src) {
 			writer.Write(new byte[] { 0x00 });
 			reg_emit8(dest, src);
 		}
@@ -62,16 +62,10 @@ namespace Managed.X86 {
 			reg_emit16(0, dest);
 			writer.Write(value);
 		}
-		public void Add32_(X86Register32 dest, UInt32 value) {
-			if (is_imm8(value)) {
-				this.writer.Write(new byte[] { 0x83 });
-				reg_emit32(0, dest);
-				writer.Write((byte)value);
-			} else {
-				this.writer.Write(new byte[] { 0x81 });
-				reg_emit32(0, dest);
-				writer.Write(value);
-			}
+		public void Add32(X86Register32 dest, Int32 value) {
+			this.writer.Write(new byte[] { 0x81 });
+			reg_emit32(0, dest);
+			writer.Write(value);
 		}
 
 		public void Add8(X86Address dest, Byte value) {
